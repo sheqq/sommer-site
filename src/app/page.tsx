@@ -73,8 +73,8 @@ export default function Home() {
       </section>
 
       <footer>
-        <span>Mit Sorgfalt gebaut für sommer.de</span>
-        <span>Next.js · MongoDB</span>
+        <span>sommer-bot.vercel.de</span>
+        <span>by sheqq</span>
       </footer>
     </main>
   );
