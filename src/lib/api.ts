@@ -1,28 +1,40 @@
-export interface User {
-  id: string;
-  username: string;
-}
+import type { Level } from "@/generated/api";
+
+export type { Level };
 
 export function isAuthorized(request: Request): boolean {
   const expectedKey = process.env.API_KEY;
   return Boolean(expectedKey && request.headers.get("X-API-Key") === expectedKey);
 }
 
-export async function readUser(request: Request): Promise<User | null> {
+export async function readLevel(request: Request): Promise<Level | null> {
   try {
     const body: unknown = await request.json();
     if (
       typeof body !== "object" ||
       body === null ||
-      !("id" in body) ||
-      !("username" in body) ||
-      typeof body.id !== "string" ||
-      typeof body.username !== "string"
+      !("guildId" in body) ||
+      !("userId" in body) ||
+      !("xp" in body) ||
+      typeof body.guildId !== "string" ||
+      typeof body.userId !== "string" ||
+      typeof body.xp !== "number" ||
+      !Number.isInteger(body.xp)
     ) {
       return null;
     }
 
-    return { id: body.id, username: body.username };
+    const level = "level" in body ? body.level : undefined;
+    if (level !== undefined && (typeof level !== "number" || !Number.isInteger(level))) {
+      return null;
+    }
+
+    return {
+      guildId: body.guildId,
+      userId: body.userId,
+      xp: body.xp,
+      ...(typeof level === "number" ? { level } : {}),
+    };
   } catch {
     return null;
   }

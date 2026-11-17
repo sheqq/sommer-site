@@ -1,11 +1,11 @@
 import Link from "next/link";
 
 const endpoints = [
-  { method: "GET", path: "/api/v1/users", description: "Alle Nutzer abrufen" },
-  { method: "POST", path: "/api/v1/users", description: "Nutzer anlegen" },
-  { method: "GET", path: "/api/v1/users/{userId}", description: "Nutzer abrufen" },
-  { method: "PUT", path: "/api/v1/users/{userId}", description: "Nutzer ersetzen" },
-  { method: "DELETE", path: "/api/v1/users/{userId}", description: "Nutzer löschen" },
+  { method: "GET", path: "/api/v1/guild/{guildId}/level", description: "Level eines Servers abrufen" },
+  { method: "POST", path: "/api/v1/guild/{guildId}/level", description: "Level anlegen" },
+  { method: "GET", path: "/api/v1/guild/{guildId}/user/{userId}/level", description: "Level abrufen" },
+  { method: "PUT", path: "/api/v1/guild/{guildId}/user/{userId}/level", description: "Level ersetzen" },
+  { method: "DELETE", path: "/api/v1/guild/{guildId}/user/{userId}/level", description: "Level löschen" },
 ];
 
 export default function Home() {
@@ -32,8 +32,8 @@ export default function Home() {
           für <span>neue Ideen.</span>
         </h1>
         <p className="hero-copy">
-          Das Fundament für die sommer.de API ist bereit. Nutzer werden über
-          eine geschützte REST-Schnittstelle verwaltet und in MongoDB gespeichert.
+          Level werden über eine geschützte REST-Schnittstelle verwaltet und in
+          MongoDB gespeichert.
         </p>
         <a className="primary-link" href="#endpoints">
           API-Endpunkte entdecken <span aria-hidden="true">↓</span>
@@ -51,9 +51,6 @@ export default function Home() {
             <p className="eyebrow">ÜBERSICHT</p>
             <h2>Deine API, auf einen Blick.</h2>
           </div>
-          <a className="spec-link" href="/sommer-facade.yaml">
-            OpenAPI-Spezifikation <span aria-hidden="true">↗</span>
-          </a>
         </div>
 
         <div className="endpoint-list">

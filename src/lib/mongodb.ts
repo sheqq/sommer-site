@@ -1,15 +1,13 @@
 import { MongoClient, type Collection, type Document } from "mongodb";
+import type { Level } from "@/generated/api";
 
 declare global {
   var mongoClientPromise: Promise<MongoClient> | undefined;
 }
 
-export interface UserDocument extends Document {
-  id: string;
-  username: string;
-}
+export type LevelDocument = Level & Document;
 
-export async function getUsersCollection(): Promise<Collection<UserDocument>> {
+export async function getLevelsCollection(): Promise<Collection<LevelDocument>> {
   const uri = process.env.MONGODB_URI;
   if (!uri) {
     throw new Error("Missing MONGODB_URI environment variable");
@@ -22,8 +20,8 @@ export async function getUsersCollection(): Promise<Collection<UserDocument>> {
   }
 
   const client = await clientPromise;
-  const database = client.db(process.env.MONGODB_DB || "sommer");
-  const collection = database.collection<UserDocument>("users");
-  await collection.createIndex({ id: 1 }, { unique: true });
+  const database = client.db();
+  const collection = database.collection<LevelDocument>("levels");
+  await collection.createIndex({ guildId: 1, userId: 1 }, { unique: true });
   return collection;
 }

@@ -1,13 +1,17 @@
 {
   "name": "sommer-site",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "predev": "npm run generate",
     "build": "next build",
+    "prebuild": "npm run generate",
     "start": "next start",
+    "generate": "openapi --input ./docs/api/sommer-facade.yaml --output ./src/generated/api --client fetch --name SommerFacadeClient",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "pretypecheck": "npm run generate"
   },
   "dependencies": {
     "mongodb": "^6.20.0",
@@ -21,6 +25,7 @@
     "@types/react-dom": "^19.1.9",
     "eslint": "^9.37.0",
     "eslint-config-next": "^15.5.9",
+    "openapi-typescript-codegen": "^0.29.0",
     "typescript": "^5.9.3"
   },
   "overrides": {

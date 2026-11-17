@@ -1,7 +1,7 @@
 # sommer-site
 
-Next.js-Grundgerüst für die sommer.de REST API. Die Endpunkte entsprechen der
-OpenAPI-Spezifikation in `sommer-facade.yaml` und speichern Nutzer in MongoDB.
+Next.js-Grundgerüst für die sommer.de REST API. Level werden in MongoDB
+gespeichert. Die OpenAPI-Spezifikation liegt unter `docs/api/sommer-facade.yaml`.
 
 ## Starten
 
@@ -13,8 +13,9 @@ Copy-Item .env.example .env.local
 npm run dev
 ```
 
-In `.env.local` `MONGODB_URI`, optional `MONGODB_DB` und einen eigenen `API_KEY`
-setzen. Die Startseite ist unter `http://localhost:3000` erreichbar.
+In `.env.local` `MONGODB_URI` (einschließlich Datenbankname im URI-Pfad) und
+einen eigenen `API_KEY` setzen. Die Startseite ist unter
+`http://localhost:3000` erreichbar.
 
 ## API
 
@@ -22,23 +23,30 @@ Alle Endpunkte erwarten den konfigurierten Schlüssel im Header `X-API-Key`.
 
 | Methode | Pfad | Beschreibung |
 | --- | --- | --- |
-| `GET` | `/api/v1/users` | Alle Nutzer abrufen |
-| `POST` | `/api/v1/users` | Nutzer anlegen |
-| `GET` | `/api/v1/users/{userId}` | Nutzer abrufen |
-| `PUT` | `/api/v1/users/{userId}` | Nutzer vollständig ersetzen |
-| `DELETE` | `/api/v1/users/{userId}` | Nutzer löschen |
+| `GET` | `/api/v1/guild/{guildId}/level` | Alle Level eines Servers abrufen |
+| `POST` | `/api/v1/guild/{guildId}/level` | Level anlegen |
+| `GET` | `/api/v1/guild/{guildId}/user/{userId}/level` | Level abrufen |
+| `PUT` | `/api/v1/guild/{guildId}/user/{userId}/level` | Level vollständig ersetzen |
+| `DELETE` | `/api/v1/guild/{guildId}/user/{userId}/level` | Level löschen |
 
-Ein Nutzer besteht aus `id` und `username`. Beispiel für `POST`:
+Ein Level besteht aus `guildId`, `userId` und `xp` sowie optional `level`.
+Beispiel für `POST`:
 
 ```json
 {
-  "id": "2347247625478",
-  "username": "Max"
+  "guildId": "2347247625478",
+  "userId": "123456789",
+  "xp": 100,
+  "level": 5
 }
 ```
 
 ```bash
+npm run generate
 npm run lint
 npm run typecheck
 npm run build
 ```
+
+`npm run generate` erstellt den Fetch-Client und die Modelle in
+`src/generated/api`.
