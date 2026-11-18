@@ -132,14 +132,14 @@ components:
       required: true
       description: ID des Servers
       schema:
-        $ref: '#/components/schemas/GuildId'
+        $ref: '#/components/schemas/GuildIdentifier'
     UserId:
       name: userId
       in: path
       required: true
       description: ID des Nutzers
       schema:
-        $ref: '#/components/schemas/UserId'
+        $ref: '#/components/schemas/UserIdentifier'
   responses:
     GuildSuccess:
       description: Erfolgreiche Antwort mit Serverdaten
@@ -177,10 +177,10 @@ components:
     ColorsEnabled:
       type: boolean
       example: true
-    GuildId:
+    GuildIdentifier:
       type: string
       example: "2347247625478"
-    UserId:
+    UserIdentifier:
       type: string
       example: "Max"
     XP:
@@ -197,9 +197,9 @@ components:
         - xp
       properties:
         guildId:
-          $ref: '#/components/schemas/GuildId'
+          $ref: '#/components/schemas/GuildIdentifier'
         userId:
-          $ref: '#/components/schemas/UserId'
+          $ref: '#/components/schemas/UserIdentifier'
         xp:
           $ref: '#/components/schemas/XP'
         level:
@@ -210,7 +210,7 @@ components:
         - guildId
       properties:
         guildId:
-          $ref: '#/components/schemas/GuildId'
+          $ref: '#/components/schemas/GuildIdentifier'
         colorsEnabled:
           $ref: '#/components/schemas/ColorsEnabled'
     User:
@@ -220,7 +220,7 @@ components:
           - guildId
         properties:
           userId:
-            $ref: '#/components/schemas/UserId'
+            $ref: '#/components/schemas/UserIdentifier'
           guildId:
             type: array
             items:
