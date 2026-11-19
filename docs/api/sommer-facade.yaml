@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: sommer-facade
   description: REST API für sommer-bot.vercel.app
-  version: 0.0.2
+  version: 0.0.3
 
 servers:
   - url: https://sommer-bot.vercel.app/api/v1
@@ -74,6 +74,8 @@ paths:
           $ref: '#/components/responses/NotFound'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '502':
+          description: Einstellung gespeichert, aber Bot-Benachrichtigung fehlgeschlagen
         '500':
           $ref: '#/components/responses/InternalServerError'
   /guild/{guildId}/level:

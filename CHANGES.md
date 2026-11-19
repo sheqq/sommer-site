@@ -6,6 +6,12 @@ the app.
 
 ## API
 
+### 0.0.3 — 2026-11-19
+
+- Servereinstellungsänderungen werden an den Bot-Webhook gesendet.
+- Bei fehlgeschlagener Bot-Benachrichtigung meldet `PUT /guild/{guildId}` den
+  Fehler mit HTTP 502; die Einstellung ist zu diesem Zeitpunkt bereits gespeichert.
+
 ### 0.0.2 — 2026-11-19
 
 - Serverdaten enthalten jetzt den Namen und das Profilbild (`iconUrl`).
@@ -17,6 +23,13 @@ the app.
   creating a colored Discord role.
 
 ## App
+
+### 0.0.3 — 2026-11-19
+
+- Serverinhaber können sich über Discord anmelden und `colorsEnabled` in der
+  Serverliste umschalten.
+- Änderungen werden über einen konfigurierbaren Webhook an den Bot gesendet.
+- OAuth und Webhook-Konfiguration werden über Umgebungsvariablen bereitgestellt.
 
 ### 0.0.2 — 2026-11-19
 

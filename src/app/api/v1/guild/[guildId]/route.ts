@@ -1,4 +1,5 @@
 import { getServer, replaceServer } from "@/lib/servers";
+import { BotWebhookDeliveryError } from "@/lib/bot-webhook";
 import {
   internalErrorResponse,
   isAuthorized,
@@ -46,6 +47,12 @@ export async function PUT(request: Request, { params }: RouteContext) {
     return Response.json(server);
   } catch (error) {
     console.error("Failed to update server:", error);
+    if (error instanceof BotWebhookDeliveryError) {
+      return Response.json(
+        { error: "Server gespeichert, aber Bot-Benachrichtigung fehlgeschlagen" },
+        { status: 502 },
+      );
+    }
     return internalErrorResponse();
   }
 }

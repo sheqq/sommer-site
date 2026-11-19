@@ -15,9 +15,16 @@ Copy-Item .env.example .env.local
 npm run dev
 ```
 
-In `.env.local` `MONGODB_URI` (einschließlich Datenbankname im URI-Pfad) und
-einen eigenen `API_KEY` setzen. Die Startseite ist unter
-`http://localhost:3000` erreichbar.
+In `.env.local` `MONGODB_URI` (einschließlich Datenbankname im URI-Pfad),
+`API_KEY`, `NEXTAUTH_SECRET`, `DISCORD_CLIENT_ID`,
+`DISCORD_CLIENT_SECRET`, `BOT_WEBHOOK_URL` und `BOT_WEBHOOK_SECRET` setzen.
+`NEXTAUTH_URL` muss auf die Web-App zeigen. Als Discord-OAuth-Redirect-URL
+registrieren:
+`<NEXTAUTH_URL>/api/auth/callback/discord`.
+
+Der Bot muss unter `BOT_WEBHOOK_URL` einen HTTPS-Endpoint bereitstellen, der
+`POST`-Events mit `Authorization: Bearer <BOT_WEBHOOK_SECRET>` entgegennimmt.
+Die Startseite ist unter `http://localhost:3000` erreichbar.
 
 ## Integration
 

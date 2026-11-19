@@ -73,21 +73,36 @@ a {
   font-weight: 500;
 }
 
-.status {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  color: #5f6e68;
-  font-size: 12px;
-  font-weight: 600;
+.auth-control {
+  display: grid;
+  justify-items: end;
+  gap: 5px;
 }
 
-.status-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #6ea586;
-  box-shadow: 0 0 0 4px #e8f1e9;
+.auth-button {
+  padding: 9px 14px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+  color: var(--green);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.auth-button:hover:not(:disabled) {
+  border-color: var(--green);
+}
+
+.auth-button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.auth-error {
+  color: #ac5a48;
+  font-size: 10px;
 }
 
 .hero {
@@ -325,6 +340,74 @@ h2 {
 .server-colors.disabled {
   background: #f7e9e5;
   color: #ac5a48;
+}
+
+.server-access-note,
+.server-access-error {
+  margin: -7px 0 22px;
+  color: #74827d;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.server-access-error {
+  color: #ac5a48;
+}
+
+.server-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 260px;
+}
+
+.color-switch {
+  width: 40px;
+  height: 23px;
+  display: inline-flex;
+  align-items: center;
+  padding: 3px;
+  border: 0;
+  border-radius: 99px;
+  background: #cbd2ce;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.color-switch.enabled {
+  background: var(--green);
+}
+
+.color-switch:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.color-switch-thumb {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: white;
+  transition: transform 150ms ease;
+}
+
+.color-switch.enabled .color-switch-thumb {
+  transform: translateX(17px);
+}
+
+.server-toggle-label {
+  min-width: 66px;
+  color: #5f6e68;
+  font-size: 11px;
+}
+
+.server-toggle-error {
+  flex-basis: 100%;
+  color: #ac5a48;
+  font-size: 10px;
+  text-align: right;
 }
 
 .empty-state {

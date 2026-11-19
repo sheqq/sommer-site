@@ -1,4 +1,5 @@
 import type { Guild } from "@/lib/api";
+import { notifyBotOfServerSettings } from "@/lib/bot-webhook";
 import { getServersCollection, type ServerDocument } from "@/lib/mongodb";
 
 export async function getServer(
@@ -32,7 +33,12 @@ export async function replaceServer(
 ): Promise<boolean> {
   const servers = await getServersCollection();
   const result = await servers.replaceOne({ guildId }, server);
-  return result.matchedCount > 0;
+  if (result.matchedCount === 0) {
+    return false;
+  }
+
+  await notifyBotOfServerSettings(server);
+  return true;
 }
 
 function toGuild(server: ServerDocument): Guild {
