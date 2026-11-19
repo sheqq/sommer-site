@@ -14,7 +14,7 @@ export default async function Home() {
           <span className="wordmark-icon" aria-hidden="true">
             s
           </span>
-          sommer<span className="wordmark-muted">.bot</span>
+          sommer<span className="wordmark-muted">-bot</span>
         </Link>
         <span className="status">
           <span className="status-dot" />
@@ -23,7 +23,7 @@ export default async function Home() {
       </header>
 
       <section className="hero">
-        <p className="eyebrow">SOMMER-BOT.VERCEL.APP · DISCORD BOT</p>
+        <p className="eyebrow">SOMMER · DISCORD BOT</p>
         <h1>
           Mehr Leben für
           <br />
@@ -121,7 +121,7 @@ export default async function Home() {
       </section>
 
       <footer>
-        <span>sommer-bot.vercel.de</span>
+        <span>sommer-bot.vercel.app</span>
         <span>by sheqq</span>
       </footer>
     </main>
