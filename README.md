@@ -23,11 +23,18 @@ Alle Endpunkte erwarten den konfigurierten Schlüssel im Header `X-API-Key`.
 
 | Methode | Pfad | Beschreibung |
 | --- | --- | --- |
+| `POST` | `/api/v1/guild` | Server speichern |
+| `GET` | `/api/v1/guild/{guildId}` | Server-Einstellungen abrufen |
+| `PUT` | `/api/v1/guild/{guildId}` | Server-Einstellungen ersetzen |
 | `GET` | `/api/v1/guild/{guildId}/level` | Alle Level eines Servers abrufen |
 | `POST` | `/api/v1/guild/{guildId}/level` | Level anlegen |
 | `GET` | `/api/v1/guild/{guildId}/user/{userId}/level` | Level abrufen |
 | `PUT` | `/api/v1/guild/{guildId}/user/{userId}/level` | Level vollständig ersetzen |
 | `DELETE` | `/api/v1/guild/{guildId}/user/{userId}/level` | Level löschen |
+
+Vor dem Erstellen einer farbigen Discord-Rolle muss der Bot
+`GET /api/v1/guild/{guildId}` aufrufen und die Rolle nur anlegen, wenn
+`colorsEnabled` den Wert `true` hat.
 
 Ein Level besteht aus `guildId`, `userId` und `xp` sowie optional `level`.
 Beispiel für `POST`:

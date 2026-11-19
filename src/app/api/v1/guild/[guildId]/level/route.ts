@@ -1,5 +1,5 @@
 import { MongoServerError } from "mongodb";
-import { getLevelsCollection } from "@/lib/mongodb";
+import { createLevel, listGuildLevels } from "@/lib/levels";
 import {
   internalErrorResponse,
   isAuthorized,
@@ -18,9 +18,7 @@ export async function GET(request: Request, { params }: RouteContext) {
 
   try {
     const { guildId } = await params;
-    const levels = await getLevelsCollection();
-    const documents = await levels.find({ guildId }, { projection: { _id: 0 } }).toArray();
-    return Response.json(documents);
+    return Response.json(await listGuildLevels(guildId));
   } catch (error) {
     console.error("Failed to fetch levels:", error);
     return internalErrorResponse();
@@ -39,8 +37,7 @@ export async function POST(request: Request, { params }: RouteContext) {
   }
 
   try {
-    const levels = await getLevelsCollection();
-    await levels.insertOne(level);
+    await createLevel(level);
     return Response.json(level, { status: 201 });
   } catch (error) {
     if (error instanceof MongoServerError && error.code === 11000) {

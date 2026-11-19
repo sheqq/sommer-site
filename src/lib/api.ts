@@ -1,6 +1,6 @@
-import type { Level } from "@/generated/api";
+import type { Guild, Level } from "@/generated/api";
 
-export type { Level };
+export type { Guild, Level };
 
 export function isAuthorized(request: Request): boolean {
   const expectedKey = process.env.API_KEY;
@@ -34,6 +34,36 @@ export async function readLevel(request: Request): Promise<Level | null> {
       userId: body.userId,
       xp: body.xp,
       ...(typeof level === "number" ? { level } : {}),
+    };
+  } catch {
+    return null;
+  }
+}
+
+export async function readGuild(request: Request): Promise<Guild | null> {
+  try {
+    const body: unknown = await request.json();
+    if (
+      typeof body !== "object" ||
+      body === null ||
+      !("guildId" in body) ||
+      typeof body.guildId !== "string"
+    ) {
+      return null;
+    }
+
+    const colorsEnabled =
+      "colorsEnabled" in body ? body.colorsEnabled : undefined;
+    if (
+      colorsEnabled !== undefined &&
+      typeof colorsEnabled !== "boolean"
+    ) {
+      return null;
+    }
+
+    return {
+      guildId: body.guildId,
+      colorsEnabled: colorsEnabled === true,
     };
   } catch {
     return null;

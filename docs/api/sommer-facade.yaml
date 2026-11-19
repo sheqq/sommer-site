@@ -17,6 +17,28 @@ tags:
     description: Operationen rund um die Server
 
 paths:
+  /guild:
+    post:
+      tags: [guild]
+      operationId: createGuild
+      summary: Server speichern
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Guild'
+      responses:
+        '201':
+          $ref: '#/components/responses/GuildSuccess'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /guild/{guildId}:
     parameters:
       - $ref: '#/components/parameters/GuildId'
@@ -27,6 +49,27 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/GuildSuccess'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      tags: [guild]
+      operationId: updateGuild
+      summary: Guild anhand der Pfad-ID vollständig durch den Body ersetzen
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Guild'
+      responses:
+        '200':
+          $ref: '#/components/responses/GuildSuccess'
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '404':
           $ref: '#/components/responses/NotFound'
         '401':
@@ -166,7 +209,7 @@ components:
     BadRequest:
       description: Ungültige Nutzerdaten, z. B. fehlende ID
     Conflict:
-      description: Für diesen Nutzer existiert bereits ein Level in diesem Server
+      description: Die Ressource existiert bereits
     NotFound:
       description: Angeforderte Ressource nicht gefunden
     Unauthorized:

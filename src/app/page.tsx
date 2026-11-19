@@ -1,6 +1,9 @@
 import Link from "next/link";
 
 const endpoints = [
+  { method: "POST", path: "/api/v1/guild", description: "Server speichern" },
+  { method: "GET", path: "/api/v1/guild/{guildId}", description: "Server-Einstellungen abrufen" },
+  { method: "PUT", path: "/api/v1/guild/{guildId}", description: "Server-Einstellungen ersetzen" },
   { method: "GET", path: "/api/v1/guild/{guildId}/level", description: "Level eines Servers abrufen" },
   { method: "POST", path: "/api/v1/guild/{guildId}/level", description: "Level anlegen" },
   { method: "GET", path: "/api/v1/guild/{guildId}/user/{userId}/level", description: "Level abrufen" },

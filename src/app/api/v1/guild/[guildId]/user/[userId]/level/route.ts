@@ -1,4 +1,4 @@
-import { getLevelsCollection } from "@/lib/mongodb";
+import { findLevel, removeLevel, replaceLevel } from "@/lib/levels";
 import {
   internalErrorResponse,
   isAuthorized,
@@ -17,11 +17,7 @@ export async function GET(request: Request, { params }: RouteContext) {
 
   try {
     const { guildId, userId } = await params;
-    const levels = await getLevelsCollection();
-    const level = await levels.findOne(
-      { guildId, userId },
-      { projection: { _id: 0 } },
-    );
+    const level = await findLevel(guildId, userId);
     if (!level) {
       return Response.json({ error: "Level nicht gefunden" }, { status: 404 });
     }
@@ -44,9 +40,7 @@ export async function PUT(request: Request, { params }: RouteContext) {
   }
 
   try {
-    const levels = await getLevelsCollection();
-    const result = await levels.replaceOne({ guildId, userId }, level);
-    if (result.matchedCount === 0) {
+    if (!(await replaceLevel(level))) {
       return Response.json({ error: "Level nicht gefunden" }, { status: 404 });
     }
     return Response.json(level);
@@ -63,9 +57,7 @@ export async function DELETE(request: Request, { params }: RouteContext) {
 
   try {
     const { guildId, userId } = await params;
-    const levels = await getLevelsCollection();
-    const result = await levels.deleteOne({ guildId, userId });
-    if (result.deletedCount === 0) {
+    if (!(await removeLevel(guildId, userId))) {
       return Response.json({ error: "Level nicht gefunden" }, { status: 404 });
     }
     return new Response(null, { status: 204 });
