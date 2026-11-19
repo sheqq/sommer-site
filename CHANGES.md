@@ -18,6 +18,13 @@ the app.
 
 ## App
 
+### 0.0.2 — 2026-11-19
+
+- Die Startseite erklärt jetzt Level-/XP-Verwaltung und Farbrollen statt die
+  API-Endpunkte in den Vordergrund zu stellen.
+- `docs/bot.md` dokumentiert die Bot-Funktionen und grenzt sie von der API ab.
+- Die Statusanzeige „API-Grundgerüst“ wurde durch „Discord-Bot“ ersetzt.
+
 ### 0.0.1 — 2026-11-19
 
 - Servernamen und Profilbilder werden gespeichert und in der Serverliste

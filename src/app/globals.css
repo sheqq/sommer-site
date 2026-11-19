@@ -188,7 +188,7 @@ h1 span {
   transform: rotate(38deg);
 }
 
-.api-section {
+.content-section {
   padding: 62px 0 74px;
 }
 
@@ -208,6 +208,42 @@ h2 {
   font-size: clamp(24px, 3vw, 31px);
   font-weight: 600;
   letter-spacing: -1.2px;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.feature-card {
+  min-height: 190px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.feature-number {
+  color: var(--green);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+}
+
+.feature-card h3 {
+  margin: 22px 0 8px;
+  color: #31453f;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.feature-card p {
+  max-width: 380px;
+  margin: 0;
+  color: #89958f;
+  font-size: 12px;
+  line-height: 1.7;
 }
 
 .spec-link {
@@ -330,6 +366,10 @@ footer {
     align-items: flex-start;
     flex-direction: column;
     gap: 15px;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
   }
 
   .server-row {

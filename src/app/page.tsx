@@ -10,31 +10,31 @@ export default async function Home() {
   return (
     <main className="page-shell">
       <header className="topbar">
-        <Link className="wordmark" href="/" aria-label="Sommer API Startseite">
+        <Link className="wordmark" href="/" aria-label="Sommer Bot Startseite">
           <span className="wordmark-icon" aria-hidden="true">
             s
           </span>
-          sommer<span className="wordmark-muted">/api</span>
+          sommer<span className="wordmark-muted">.bot</span>
         </Link>
         <span className="status">
           <span className="status-dot" />
-          API-Grundgerüst
+          Discord-Bot
         </span>
       </header>
 
       <section className="hero">
-        <p className="eyebrow">SOMMER.DE · REST API</p>
+        <p className="eyebrow">SOMMER.DE · DISCORD BOT</p>
         <h1>
-          Ein guter Anfang
+          Mehr Leben für
           <br />
-          für <span>neue Ideen.</span>
+          deinen <span>Server.</span>
         </h1>
         <p className="hero-copy">
-          Level werden über eine geschützte REST-Schnittstelle verwaltet und in
-          MongoDB gespeichert.
+          Sommer begleitet den Fortschritt deiner Community mit Leveln und
+          farbigen Rollen.
         </p>
-        <a className="primary-link" href="#servers">
-          Server anzeigen <span aria-hidden="true">↓</span>
+        <a className="primary-link" href="#features">
+          Funktionen entdecken <span aria-hidden="true">↓</span>
         </a>
         <div className="hero-decoration" aria-hidden="true">
           <span className="sun" />
@@ -43,11 +43,39 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="api-section" id="servers">
+      <section className="content-section" id="features">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">ÜBERSICHT</p>
-            <h2>Gespeicherte Server</h2>
+            <p className="eyebrow">FUNKTIONEN</p>
+            <h2>Was Sommer für deinen Server kann.</h2>
+          </div>
+        </div>
+
+        <div className="feature-grid">
+          <article className="feature-card">
+            <span className="feature-number">01</span>
+            <h3>Level &amp; XP</h3>
+            <p>
+              XP und Levelstände werden pro Mitglied und Server verwaltet. Der
+              Bot liefert die Werte passend zu seinem Level-System.
+            </p>
+          </article>
+          <article className="feature-card">
+            <span className="feature-number">02</span>
+            <h3>Farbige Rollen</h3>
+            <p>
+              Farbrollen werden nur erstellt, wenn sie für den jeweiligen
+              Server aktiviert sind.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section className="content-section" id="servers">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">SERVER</p>
+            <h2>Deine Communitys auf einen Blick.</h2>
           </div>
         </div>
 

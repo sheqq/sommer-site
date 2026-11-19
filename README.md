@@ -1,7 +1,9 @@
-# sommer-site
+# Sommer Bot
 
-Next.js-Grundgerüst für die sommer.de REST API. Level werden in MongoDB
-gespeichert. Die OpenAPI-Spezifikation liegt unter `docs/api/sommer-facade.yaml`.
+Sommer unterstützt Discord-Communitys bei Levelständen und farbigen Rollen.
+Eine Übersicht der Funktionen steht in [`docs/bot.md`](docs/bot.md). Dieses
+Repository enthält die Webanwendung und die Schnittstelle zum Bot; die
+Discord-Aktionen laufen im Bot selbst.
 
 ## Starten
 
@@ -17,9 +19,10 @@ In `.env.local` `MONGODB_URI` (einschließlich Datenbankname im URI-Pfad) und
 einen eigenen `API_KEY` setzen. Die Startseite ist unter
 `http://localhost:3000` erreichbar.
 
-## API
+## Integration
 
 Alle Endpunkte erwarten den konfigurierten Schlüssel im Header `X-API-Key`.
+Die API-Spezifikation liegt unter `docs/api/sommer-facade.yaml`.
 
 | Methode | Pfad | Beschreibung |
 | --- | --- | --- |
