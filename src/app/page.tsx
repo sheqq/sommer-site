@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { listServers } from "@/lib/servers";
 
 export const dynamic = "force-dynamic";
@@ -56,7 +57,28 @@ export default async function Home() {
           <ul className="server-list">
             {servers.map((server) => (
               <li className="server-row" key={server.guildId}>
-                <code>{server.guildId}</code>
+                <div className="server-identity">
+                  {server.iconUrl ? (
+                    <Image
+                      className="server-avatar"
+                      src={server.iconUrl}
+                      alt=""
+                      width={44}
+                      height={44}
+                      unoptimized
+                    />
+                  ) : (
+                    <span className="server-avatar server-avatar-fallback" aria-hidden="true">
+                      {(server.name || server.guildId).charAt(0).toUpperCase()}
+                    </span>
+                  )}
+                  <div className="server-details">
+                    <span className="server-name">
+                      {server.name || server.guildId}
+                    </span>
+                    <code>{server.guildId}</code>
+                  </div>
+                </div>
                 <span
                   className={`server-colors ${
                     server.colorsEnabled ? "enabled" : "disabled"

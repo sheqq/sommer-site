@@ -36,6 +36,18 @@ Vor dem Erstellen einer farbigen Discord-Rolle muss der Bot
 `GET /api/v1/guild/{guildId}` aufrufen und die Rolle nur anlegen, wenn
 `colorsEnabled` den Wert `true` hat.
 
+Serverdaten enthalten `guildId`, `name`, `iconUrl` (HTTPS-URL oder `null`) und
+`colorsEnabled`. Beispiel für `POST /api/v1/guild`:
+
+```json
+{
+  "guildId": "2347247625478",
+  "name": "Sommer Community",
+  "iconUrl": "https://cdn.example.com/server-icon.png",
+  "colorsEnabled": true
+}
+```
+
 Ein Level besteht aus `guildId`, `userId` und `xp` sowie optional `level`.
 Beispiel für `POST`:
 

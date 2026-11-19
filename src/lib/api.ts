@@ -47,22 +47,40 @@ export async function readGuild(request: Request): Promise<Guild | null> {
       typeof body !== "object" ||
       body === null ||
       !("guildId" in body) ||
-      typeof body.guildId !== "string"
+      typeof body.guildId !== "string" ||
+      !("name" in body) ||
+      typeof body.name !== "string" ||
+      body.name.trim().length === 0
     ) {
       return null;
     }
 
     const colorsEnabled =
       "colorsEnabled" in body ? body.colorsEnabled : undefined;
+    const iconUrl = "iconUrl" in body ? body.iconUrl : null;
     if (
       colorsEnabled !== undefined &&
       typeof colorsEnabled !== "boolean"
     ) {
       return null;
     }
+    if (iconUrl !== null && typeof iconUrl !== "string") {
+      return null;
+    }
+    if (typeof iconUrl === "string") {
+      try {
+        if (new URL(iconUrl).protocol !== "https:") {
+          return null;
+        }
+      } catch {
+        return null;
+      }
+    }
 
     return {
       guildId: body.guildId,
+      name: body.name.trim(),
+      iconUrl,
       colorsEnabled: colorsEnabled === true,
     };
   } catch {

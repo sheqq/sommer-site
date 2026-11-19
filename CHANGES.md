@@ -6,6 +6,10 @@ the app.
 
 ## API
 
+### 0.0.2 — 2026-11-19
+
+- Serverdaten enthalten jetzt den Namen und das Profilbild (`iconUrl`).
+
 ### 0.0.1 — 2026-11-19
 
 - Added endpoints to create, retrieve, and update server settings.
@@ -13,6 +17,11 @@ the app.
   creating a colored Discord role.
 
 ## App
+
+### 0.0.1 — 2026-11-19
+
+- Servernamen und Profilbilder werden gespeichert und in der Serverliste
+  angezeigt.
 
 ### 0.0.0 — 2026-11-19
 

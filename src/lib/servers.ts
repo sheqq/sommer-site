@@ -3,17 +3,22 @@ import { getServersCollection, type ServerDocument } from "@/lib/mongodb";
 
 export async function getServer(
   guildId: string,
-): Promise<ServerDocument | null> {
+): Promise<Guild | null> {
   const servers = await getServersCollection();
-  return servers.findOne({ guildId }, { projection: { _id: 0 } });
+  const server = await servers.findOne(
+    { guildId },
+    { projection: { _id: 0 } },
+  );
+  return server ? toGuild(server) : null;
 }
 
-export async function listServers(): Promise<ServerDocument[]> {
+export async function listServers(): Promise<Guild[]> {
   const servers = await getServersCollection();
-  return servers
+  const documents = await servers
     .find({}, { projection: { _id: 0 } })
     .sort({ guildId: 1 })
     .toArray();
+  return documents.map(toGuild);
 }
 
 export async function saveServer(server: Guild): Promise<void> {
@@ -28,4 +33,13 @@ export async function replaceServer(
   const servers = await getServersCollection();
   const result = await servers.replaceOne({ guildId }, server);
   return result.matchedCount > 0;
+}
+
+function toGuild(server: ServerDocument): Guild {
+  return {
+    guildId: server.guildId,
+    name: server.name || server.guildId,
+    iconUrl: server.iconUrl ?? null,
+    colorsEnabled: server.colorsEnabled ?? false,
+  };
 }

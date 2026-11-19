@@ -233,6 +233,40 @@ h2 {
   border-bottom: 1px solid var(--line);
 }
 
+.server-identity {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.server-avatar {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.server-avatar-fallback {
+  display: grid;
+  place-items: center;
+  background: #e7f1e9;
+  color: #39744c;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.server-details {
+  display: grid;
+  gap: 4px;
+}
+
+.server-name {
+  color: #31453f;
+  font-size: 13px;
+  font-weight: 600;
+}
+
 .server-row code {
   color: #31453f;
   font-family: "DM Sans", sans-serif;
