@@ -23,7 +23,7 @@ export default async function Home() {
       </header>
 
       <section className="hero">
-        <p className="eyebrow">SOMMER.DE · DISCORD BOT</p>
+        <p className="eyebrow">SOMMER-BOT.VERCEL.APP · DISCORD BOT</p>
         <h1>
           Mehr Leben für
           <br />
@@ -75,7 +75,7 @@ export default async function Home() {
         <div className="section-heading">
           <div>
             <p className="eyebrow">SERVER</p>
-            <h2>Deine Communitys auf einen Blick.</h2>
+            <h2>Alle Communitys auf einem Blick.</h2>
           </div>
         </div>
 
