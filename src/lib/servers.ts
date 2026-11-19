@@ -8,6 +8,14 @@ export async function getServer(
   return servers.findOne({ guildId }, { projection: { _id: 0 } });
 }
 
+export async function listServers(): Promise<ServerDocument[]> {
+  const servers = await getServersCollection();
+  return servers
+    .find({}, { projection: { _id: 0 } })
+    .sort({ guildId: 1 })
+    .toArray();
+}
+
 export async function saveServer(server: Guild): Promise<void> {
   const servers = await getServersCollection();
   await servers.insertOne(server);

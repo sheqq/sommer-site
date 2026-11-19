@@ -1,17 +1,11 @@
 import Link from "next/link";
+import { listServers } from "@/lib/servers";
 
-const endpoints = [
-  { method: "POST", path: "/api/v1/guild", description: "Server speichern" },
-  { method: "GET", path: "/api/v1/guild/{guildId}", description: "Server-Einstellungen abrufen" },
-  { method: "PUT", path: "/api/v1/guild/{guildId}", description: "Server-Einstellungen ersetzen" },
-  { method: "GET", path: "/api/v1/guild/{guildId}/level", description: "Level eines Servers abrufen" },
-  { method: "POST", path: "/api/v1/guild/{guildId}/level", description: "Level anlegen" },
-  { method: "GET", path: "/api/v1/guild/{guildId}/user/{userId}/level", description: "Level abrufen" },
-  { method: "PUT", path: "/api/v1/guild/{guildId}/user/{userId}/level", description: "Level ersetzen" },
-  { method: "DELETE", path: "/api/v1/guild/{guildId}/user/{userId}/level", description: "Level löschen" },
-];
+export const dynamic = "force-dynamic";
 
-export default function Home() {
+export default async function Home() {
+  const servers = await listServers();
+
   return (
     <main className="page-shell">
       <header className="topbar">
@@ -38,8 +32,8 @@ export default function Home() {
           Level werden über eine geschützte REST-Schnittstelle verwaltet und in
           MongoDB gespeichert.
         </p>
-        <a className="primary-link" href="#endpoints">
-          API-Endpunkte entdecken <span aria-hidden="true">↓</span>
+        <a className="primary-link" href="#servers">
+          Server anzeigen <span aria-hidden="true">↓</span>
         </a>
         <div className="hero-decoration" aria-hidden="true">
           <span className="sun" />
@@ -48,28 +42,32 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="api-section" id="endpoints">
+      <section className="api-section" id="servers">
         <div className="section-heading">
           <div>
             <p className="eyebrow">ÜBERSICHT</p>
-            <h2>Deine API, auf einen Blick.</h2>
+            <h2>Gespeicherte Server</h2>
           </div>
         </div>
 
-        <div className="endpoint-list">
-          {endpoints.map((endpoint) => (
-            <div className="endpoint-row" key={`${endpoint.method}-${endpoint.path}`}>
-              <span className={`method method-${endpoint.method.toLowerCase()}`}>
-                {endpoint.method}
-              </span>
-              <code>{endpoint.path}</code>
-              <span className="endpoint-description">{endpoint.description}</span>
-              <span className="row-arrow" aria-hidden="true">
-                ↗
-              </span>
-            </div>
-          ))}
-        </div>
+        {servers.length === 0 ? (
+          <p className="empty-state">Noch keine Server gespeichert.</p>
+        ) : (
+          <ul className="server-list">
+            {servers.map((server) => (
+              <li className="server-row" key={server.guildId}>
+                <code>{server.guildId}</code>
+                <span
+                  className={`server-colors ${
+                    server.colorsEnabled ? "enabled" : "disabled"
+                  }`}
+                >
+                  Farben {server.colorsEnabled ? "aktiviert" : "deaktiviert"}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
 
       <footer>
