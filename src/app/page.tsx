@@ -13,10 +13,18 @@ import { DiscordAuthButton } from "@/app/components/discord-auth-button";
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const [servers, session] = await Promise.all([
-    listServers(),
+  const [serverResult, session] = await Promise.all([
+    listServers()
+      .then((servers) => ({ ok: true as const, servers }))
+      .catch((error: unknown) => ({ ok: false as const, error })),
     getServerSession(authOptions),
   ]);
+  const servers = serverResult.ok ? serverResult.servers : [];
+  const serversLoadFailed = !serverResult.ok;
+  if (!serverResult.ok) {
+    console.error("Failed to load servers:", serverResult.error);
+  }
+
   let ownedGuildIds = new Set<string>();
   let ownershipLookupFailed = false;
 
@@ -119,7 +127,12 @@ export default async function Home() {
           </p>
         )}
 
-        {servers.length === 0 ? (
+        {serversLoadFailed ? (
+          <p className="server-access-error" role="alert">
+            Die Serverliste konnte nicht geladen werden. Bitte prüfe die
+            Verbindung zur Bot-Datenbank und versuche es später erneut.
+          </p>
+        ) : servers.length === 0 ? (
           <p className="empty-state">Noch keine Server gespeichert.</p>
         ) : (
           <ul className="server-list">
