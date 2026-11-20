@@ -1,6 +1,14 @@
 import DiscordProvider from "next-auth/providers/discord";
 import type { NextAuthOptions } from "next-auth";
 
+export function isDiscordAuthConfigured(): boolean {
+  return Boolean(
+    process.env.NEXTAUTH_SECRET &&
+      process.env.DISCORD_CLIENT_ID &&
+      process.env.DISCORD_CLIENT_SECRET,
+  );
+}
+
 export const authOptions: NextAuthOptions = {
   providers: [
     DiscordProvider({

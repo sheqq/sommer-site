@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { authOptions, isDiscordAuthConfigured } from "@/lib/auth";
 import {
   getDiscordAccessToken,
   getOwnedDiscordGuildIds,
@@ -13,11 +13,12 @@ import { DiscordAuthButton } from "@/app/components/discord-auth-button";
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
+  const authConfigured = isDiscordAuthConfigured();
   const [serverResult, session] = await Promise.all([
     listServers()
       .then((servers) => ({ ok: true as const, servers }))
       .catch((error: unknown) => ({ ok: false as const, error })),
-    getServerSession(authOptions),
+    authConfigured ? getServerSession(authOptions) : Promise.resolve(null),
   ]);
   const servers = serverResult.ok ? serverResult.servers : [];
   const serversLoadFailed = !serverResult.ok;
@@ -51,10 +52,12 @@ export default async function Home() {
           </span>
           sommer<span className="wordmark-muted">-bot</span>
         </Link>
-        <DiscordAuthButton
-          signedIn={Boolean(session)}
-          reconnect={Boolean(session && ownershipLookupFailed)}
-        />
+        {authConfigured && (
+          <DiscordAuthButton
+            signedIn={Boolean(session)}
+            reconnect={Boolean(session && ownershipLookupFailed)}
+          />
+        )}
       </header>
 
       <section className="hero">
@@ -116,8 +119,9 @@ export default async function Home() {
 
         {!session && (
           <p className="server-access-note">
-            Melde dich mit Discord an. Nur Serverinhaber können Farbrollen
-            aktivieren oder deaktivieren.
+            {authConfigured
+              ? "Melde dich mit Discord an. Nur Serverinhaber können Farbrollen aktivieren oder deaktivieren."
+              : "Die Discord-Anmeldung ist derzeit nicht verfügbar."}
           </p>
         )}
         {session && ownershipLookupFailed && (
